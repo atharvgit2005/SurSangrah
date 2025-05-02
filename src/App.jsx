@@ -13,7 +13,7 @@ function App() {
     <Router>
       <div className="min-h-screen">
         <Sidebar />
-        <main className="transition-all duration-300 bg-red-700 min-h-screen">
+        <main className="transition-all duration-300 min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/chordhub" element={<ChordHub />} />

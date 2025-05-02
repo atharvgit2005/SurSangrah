@@ -11,7 +11,7 @@ export default function Riyaz() {
   const [exercise, setExercise] = useState('sa_re_ga_ma');
 
   return (
-    <div className="mt-10o
+    <div className="mt-10
      first-letter:riyaz-container bg-gradient-to-b from-gray-900 to-purple-900 text-white min-h-screen p-6">
       <h1 className="text-4xl font-bold mb-8 text-purple-300">Riyaz - Vocal Coach</h1>
       

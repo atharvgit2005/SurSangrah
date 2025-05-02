@@ -10,7 +10,7 @@ export default function AudioAnalyzer({ onPitchDetected, scale }) {
   const analyserRef = useRef(null);
   const sourceRef = useRef(null);
   const animationFrameRef = useRef(null);
-  const pitchDetector = useRef(YIN({ sampleRate: 44100 }));
+  const pitchDetector = useRef(null);
 
   const getSwaraName = (frequency) => {
     if (!frequency) return null;
@@ -51,8 +51,12 @@ export default function AudioAnalyzer({ onPitchDetected, scale }) {
       
       setPermissionGranted(true);
       audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      // Initialize pitch detector with actual sample rate
+      pitchDetector.current = YIN({ sampleRate: audioContextRef.current.sampleRate });
+      
       analyserRef.current = audioContextRef.current.createAnalyser();
       analyserRef.current.fftSize = 2048;
+      analyserRef.current.smoothingTimeConstant = 0.8;
       
       sourceRef.current = audioContextRef.current.createMediaStreamSource(stream);
       sourceRef.current.connect(analyserRef.current);
@@ -92,7 +96,7 @@ export default function AudioAnalyzer({ onPitchDetected, scale }) {
     
     const frequency = pitchDetector.current(dataArray);
     
-    if (frequency) {
+    if (frequency && frequency > 50 && frequency < 2000) { // Filter out unrealistic frequencies
       const detectedPitch = getSwaraName(frequency);
       if (detectedPitch) {
         const centsOff = calculateCents(frequency, 69); // Middle A (440Hz)
