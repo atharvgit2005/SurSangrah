@@ -6,7 +6,7 @@ import SurSaathi from './pages/SurSaathi';
 import BeatLoopr from './pages/BeatLoopr';
 import SurCheck from './pages/SurCheck';
 import Riyaz from './pages/Riyaz';
-import Sidebar from './components/sidebar';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
